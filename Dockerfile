@@ -14,6 +14,11 @@ RUN	mkdir -p $PLAN9 && \
 		mac mail man news \
 		postscript proto \
 		src tmac troff unix
+ADD	*.c mkfile /tmp/
+RUN	cd /tmp && \
+	mk install && \
+	mk clean &&
+	rm -f *.c mkfile
 
 FROM	alpine:latest
 ENV	PLAN9=/usr/local/plan9
