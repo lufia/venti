@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if ! test -r venti.conf
+then
+	diskprep -a arenas -a isect -a bloom $VENTI_SIZE | sh
+	v=$PLAN9/bin/venti
+	$v/fmtisect isect isect
+	$v/fmtarenas arenas arenas
+	$v/fmtbloom bloom
+	$v/fmtindex /app/venti.conf
+	cp /app/venti.conf venti.conf
+fi
+
+export venti=127.1
+exec $PLAN9/bin/venti/venti -s -c venti.conf
