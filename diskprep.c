@@ -108,8 +108,8 @@ autoxpart(vlong secs, vlong secsize)
 			continue;
 		if(debug)
 			fprint(2, "%s %llud\n", autox[i].name, autox[i].size);
-		print("dd if=/dev/zero of=%s bs=%lld count=%lld\n",
-			autox[i].name, secsize, autox[i].size);
+		print("fallocate -l %lld %s\n",
+			secsize*autox[i].size, autox[i].name);
 	}
 }
 
